@@ -35,9 +35,34 @@ pipeline {
 		}
 		stage('compile'){
 			steps {
-				echo 'this is compile'
+				sh  "mvn clean compile"
 			}	
-		}	
+		}
+		stage('TEST'){
+			steps {
+				sh  "mvn test "
+			}	
+		}
+		stage('Integration Test'){
+			steps {
+				sh "mvn failsafe:integration-test failsafe:verify"
+			}	
+		}
+		stage('Package') {
+			steps {
+				sh "mvn package -DskipTests"
+			}
+		}
+		stage('Build Docker Image') {
+			steps {
+				//"docker build -t in28min/currency-exchange-devops:$env.BUILD_TAG"
+				script {
+					dockerImage = docker.build("http://localhost:5000/currency-exchange-devops:${env.BUILD_TAG}")
+				}
+
+			}
+		}
+
 		} 
     post {
 		always {
