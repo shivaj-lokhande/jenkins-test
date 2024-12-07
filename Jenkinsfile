@@ -23,7 +23,7 @@ pipeline {
 		stage('build'){
 			steps {
 				echo 'this is build'
-				sh 'mvn --version'
+				//sh 'mvn --version'
 				echo "build number - $env.BUILD_NUMBER"
 				echo "build ID - $env.BUILD_ID"
 				echo "build TAG - $env.BUILD_TAG"
