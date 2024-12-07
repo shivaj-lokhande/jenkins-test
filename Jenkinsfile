@@ -10,20 +10,21 @@
 // 	}
 // }
 
-environment {
+
+
+pipeline {
+	agent any
+	environment {
 		//dockerHome = tool 'myDocker'
 		mavenHome = tool 'myMaven'
 		PATH = "$mavenHome/bin:$PATH"
 	}
 
-
-pipeline {
-	agent any
 	stages {
 		stage('build'){
 			steps {
 				echo 'this is build'
-				//sh 'mvn --version'
+				sh 'mvn -v'
 				echo "build number - $env.BUILD_NUMBER"
 				echo "build ID - $env.BUILD_ID"
 				echo "build TAG - $env.BUILD_TAG"
