@@ -53,16 +53,15 @@ pipeline {
 			steps {
 				//"docker build -t in28min/currency-exchange-devops:$env.BUILD_TAG"
 				script {
-					dockerImage = docker.build("http://localhost:5000/temp:${env.BUILD_TAG}")
+					dockerImage = docker.build("localhost:5000/temp:${env.BUILD_TAG}")
 				}
-
 			}
 		}
 
 		stage('Push Docker Image') {
 			steps {
 				script {
-					docker.withRegistry('', 'localdocker') {
+					docker.withRegistry('localhost:5000', 'localdocker') {
 						dockerImage.push();
 						dockerImage.push('latest');
 					}
