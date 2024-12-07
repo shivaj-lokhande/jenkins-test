@@ -2,7 +2,7 @@
 //Scripted pipeline
 node {
 echo 'build'
-echo 'test'
+echo 'integrationtest'
 echo 'deploy'
 }
 
